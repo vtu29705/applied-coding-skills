@@ -1,0 +1,22 @@
+ import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        Set<Integer> seen = new HashSet<>();
+        
+        for (int i = 0; i < nums.length; i++) {
+            // If the element is already in our set, we found a duplicate within distance k
+            if (!seen.add(nums[i])) {
+                return true;
+            }
+            
+            // Maintain a sliding window of size k by removing elements that are out of bounds
+            if (i >= k) {
+                seen.remove(nums[i - k]);
+            }
+        }
+        
+        return false;
+    }
+}
